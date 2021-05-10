@@ -1,41 +1,41 @@
 
 provider "aws" {
   region     =  var.region
-  access_key = "AKIAXKWEKNWIQQ2RUF4G"
-  secret_key = "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"
+  access_key = "AKIATF3XX54U3X46KWRV"
+  secret_key = "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"
 }
 
 
-resource "aws_vpc" "homework4_vpc" {
+resource "aws_vpc" "hw4_vpc" {
   cidr_block = var.cidr_block
   tags = {
-    Name = "homework4_vpc"
+    Name = "hw4_vpc"
   }
 }
 
 
 resource "aws_subnet" "public" {
-  vpc_id     = aws_vpc.homework4_vpc.id
+  vpc_id     = aws_vpc.hw4_vpc.id
   cidr_block = var.subnet_cidr
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "homework4_vpc_public"
+    Name = "hw4_vpc_public"
   }
 }
 
 
 resource "aws_internet_gateway" "igw" {
-  vpc_id = aws_vpc.homework4_vpc.id
+  vpc_id = aws_vpc.hw4_vpc.id
 }
 
 
 resource "aws_subnet" "private" {
-  vpc_id     = aws_vpc.homework4_vpc.id
+  vpc_id     = aws_vpc.hw4_vpc.id
   cidr_block = var.subnet_p_cidr
 
   tags = {
-    Name = "homework4_vpc_private"
+    Name = "hw4_vpc_private"
   }
 }
 
@@ -54,8 +54,8 @@ resource "aws_nat_gateway" "ngw" {
 }
 
 
-resource "aws_route_table" "rt_homework4_vpc_public" {
-  vpc_id = aws_vpc.homework4_vpc.id
+resource "aws_route_table" "rt_hw4_vpc_public" {
+  vpc_id = aws_vpc.hw4_vpc.id
 
   route {
     cidr_block = "0.0.0.0/0"
@@ -63,13 +63,13 @@ resource "aws_route_table" "rt_homework4_vpc_public" {
   }
 
   tags = {
-    Name = "rt_homework4_vpc_public"
+    Name = "rt_hw4_vpc_public"
   }
 }
 
 
-resource "aws_route_table" "rt_homework4_vpc_private" {
-  vpc_id = aws_vpc.homework4_vpc.id
+resource "aws_route_table" "rt_hw4_vpc_private" {
+  vpc_id = aws_vpc.hw4_vpc.id
 
  route {
     cidr_block = "0.0.0.0/0"
@@ -77,21 +77,21 @@ resource "aws_route_table" "rt_homework4_vpc_private" {
   }
 
   tags = {
-    Name = "rt_homework4_vpc_private"
+    Name = "rt_hw4_vpc_private"
   }
 }
 
 
 resource "aws_route_table_association" "public_association" {
  subnet_id = aws_subnet.public.id
- route_table_id = aws_route_table.rt_homework4_vpc_public.id
+ route_table_id = aws_route_table.rt_hw4_vpc_public.id
 }
 
 
 resource "aws_security_group" "allow_hw4" {
   name = "allow_hw4_traffic"
   description = "Allow inbound web traffic"
-  vpc_id = aws_vpc.homework4_vpc.id
+  vpc_id = aws_vpc.hw4_vpc.id
 
   ingress {
     cidr_blocks = [ "0.0.0.0/0" ]
@@ -137,7 +137,7 @@ resource "aws_security_group" "allow_hw4" {
   }
 
   tags = {
-    "Name" = "homework4-sg"
+    "Name" = "hw4-sg"
   }
 
 }
