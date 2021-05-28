@@ -4,8 +4,9 @@ terraform Code to build objects in aws cloud.
 ## run the terraform code
 
 open the terminal in VS and run:
-
+```bash
 terraform init
+```
 
 to check the code before running on cloud run:
 
