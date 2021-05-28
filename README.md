@@ -9,13 +9,13 @@ terraform init
 ```
 
 to check the code before running on cloud run:
-
+```bash
 terraform plan
-
+```
 finally to run on aws run:
-
+```bash
 terraform apply
-
+```
 open the aws and get the public ip for wordpress instance and open it in the browser in this way:
 
 http://public_ip:80
